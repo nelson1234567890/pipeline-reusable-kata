@@ -41,10 +41,7 @@ jobs:
           eval "${{ inputs.command-execute }}" || exit 1
         continue-on-error: true
 
-  export-report:
-    runs-on: ubuntu-latest
-    needs: back-testing
-    steps:
+
       - name: Generate Report
         if: ${{ inputs.command-report != '' }}
         run: |
@@ -54,6 +51,4 @@ jobs:
       - name: Artifact-Report
         uses: actions/upload-artifact@v4
         with:
-            path: ${{ inputs.path-report }}
-          
-          
+          path: ${{ inputs.path-report }}
