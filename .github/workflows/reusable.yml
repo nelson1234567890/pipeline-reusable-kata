@@ -2,10 +2,6 @@ name: Back Test Execution
 on:
   workflow_call:
     inputs:
-      repository:
-        description: "Name of repo in Github"
-        required: true
-        type: string
       java-version:
         description: "Version of Java"
         required: false
