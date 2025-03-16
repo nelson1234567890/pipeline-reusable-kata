@@ -47,6 +47,10 @@ jobs:
         run: |
           echo "${{ inputs.command-report }}"
           eval "${{ inputs.command-report }}" || exit 1
+          
+
+      - name: Wait before uploading (optional)
+        run: sleep 5s
 
       - name: Artifact-Report
         uses: actions/upload-artifact@v4
