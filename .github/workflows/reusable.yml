@@ -1,0 +1,52 @@
+name: Back Test Execution
+on:
+  workflow_call:
+    inputs:
+      repository:
+        description: "Name of repo in Github"
+        required: true
+        type: string
+      java-version:
+        description: "Version of Java"
+        required: false
+        default: "11"
+        type: string
+      command-install:
+        description: 'Command to install dependencies of automation project'
+        required: false
+        type: string
+      command-execute:
+        description: 'Command to execute the automation project'
+        required: true
+        type: string
+
+jobs:
+  back-testing:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Clone Repository
+        uses: actions/checkout@v4
+        with:
+          persist-credentials: false
+          path: ./${{ inputs.repository }}
+
+      - name: Set Up Java ${{ inputs.java-version }}
+        uses: actions/setup-java@v4
+        with:
+          java-version: ${{ inputs.java-version }}
+          architecture: x64
+          distribution: "adopt"
+
+      - name: 📦 Install Dependencies
+        if: ${{ inputs.command-install != '' }}
+        run: |
+          echo "${{ inputs.command-install }}"
+          eval "${{ inputs.command-install }}" || exit 1
+
+      - name: Execute Automated Tests
+        if: ${{ inputs.command-execute != '' }}
+        run: |
+          echo "${{ inputs.command-execute }}"
+          eval "${{ inputs.command-execute }}" || exit 1
+
+
