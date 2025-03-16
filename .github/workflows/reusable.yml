@@ -13,7 +13,7 @@ on:
         type: string
       command-report:
         description: 'Command to generate report'
-        required: true
+        required: false
         type: string
       path-report:
         description: 'path of report'
