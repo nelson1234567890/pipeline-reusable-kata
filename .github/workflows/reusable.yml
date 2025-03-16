@@ -7,10 +7,6 @@ on:
         required: false
         default: "11"
         type: string
-      command-install:
-        description: 'Command to install dependencies of automation project'
-        required: false
-        type: string
       command-execute:
         description: 'Command to execute the automation project'
         required: true
@@ -29,12 +25,6 @@ jobs:
           java-version: ${{ inputs.java-version }}
           architecture: x64
           distribution: "adopt"
-
-      - name: 📦 Install Dependencies
-        if: ${{ inputs.command-install != '' }}
-        run: |
-          echo "${{ inputs.command-install }}"
-          eval "${{ inputs.command-install }}" || exit 1
 
       - name: Execute Automated Tests
         if: ${{ inputs.command-execute != '' }}
