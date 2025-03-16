@@ -11,6 +11,10 @@ on:
         description: 'Command to execute the automation project'
         required: true
         type: string
+      command-report:
+        description: 'Command to generate report'
+        required: true
+        type: string
 
 jobs:
   back-testing:
@@ -32,4 +36,9 @@ jobs:
           echo "${{ inputs.command-execute }}"
           eval "${{ inputs.command-execute }}" || exit 1
 
+      - name: Generate Report
+        if: ${{ inputs.command-report != '' }}
+        run: |
+          echo "${{ inputs.command-report }}"
+          eval "${{ inputs.command-report }}" || exit 1
 
