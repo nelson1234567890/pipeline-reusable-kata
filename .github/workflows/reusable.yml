@@ -8,7 +8,7 @@ on:
         default: "11"
         type: string
       command-execute:
-        description: 'Command to execute the automation project'
+        description: 'Command to execute the project'
         required: true
         type: string
       command-report:
