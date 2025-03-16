@@ -15,6 +15,10 @@ on:
         description: 'Command to generate report'
         required: true
         type: string
+      path-report:
+        description: 'path of report'
+        required: true
+        type: string
 
 jobs:
   back-testing:
@@ -37,9 +41,19 @@ jobs:
           eval "${{ inputs.command-execute }}" || exit 1
         continue-on-error: true
 
+  export-report:
+    runs-on: ubuntu-latest
+    needs: back-testing
+    steps:
       - name: Generate Report
         if: ${{ inputs.command-report != '' }}
         run: |
           echo "${{ inputs.command-report }}"
           eval "${{ inputs.command-report }}" || exit 1
 
+      - name: Artifact-Report
+        uses: actions/upload-artifact@v4
+        with:
+            path: ${{ inputs.path-report }}
+          
+          
